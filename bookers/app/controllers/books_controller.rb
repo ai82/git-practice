@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  $update_check_flag
   def top
     @books = Book.all
     @book = Book.new
@@ -27,9 +28,13 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
   def update
-    book = Book.find(params[:id])
-    book.update(list_params)
-    redirect_to book_path(book.id)
+    @book = Book.find(params[:id])
+    if @book.update(list_params)
+      $update_check_flag = true
+      redirect_to book_path(@book.id)
+    else
+      render :edit
+    end
   end
   def destroy
     book = Book.find(params[:id])
