@@ -1,8 +1,6 @@
-
-  <% if $update_check_flag == true %>
-    <p id="notice">Book was successfully updated.</p>
-    <% $update_check_flag = false %>
-  <% end %>
+<p id="notice">
+  <%= flash[:notice] %>
+</p>
 <p>
   <strong>Title:</strong>
   <%= @book.title %>
